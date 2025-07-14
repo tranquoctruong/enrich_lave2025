@@ -1,0 +1,43 @@
+# Build Folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Auto-generated files
+*.generated.cs
+
+# Visual Studio cache files
+.vs/
+
+# Rider cache files
+.idea/
+
+# DotNet Core publish folder
+publish/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Logs
+*.log
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Others
+*.DS_Store
+*.vscode/
+
+# Azure Pipelines
+.azure-pipelines.yml
