@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{5B89C00F-285C-4A18-8629-74B9191F45E4}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Infrastructure", "ProductService.Infrastructure\ProductService.Infrastructure.csproj", "{07CE727A-8E5A-43A9-9748-05A128E62A22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway.API", "ApiGateway.API\ApiGateway.API.csproj", "{E86D10FA-0F50-4B4E-9C0B-C28B6FB8D1F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.DTO", "IdentityService.DTO\IdentityService.DTO.csproj", "{F004A9D1-03B3-4639-A65A-6E47E5012B20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{E86D10FA-0F50-4B4E-9C0B-C28B6FB8D1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E86D10FA-0F50-4B4E-9C0B-C28B6FB8D1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E86D10FA-0F50-4B4E-9C0B-C28B6FB8D1F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F004A9D1-03B3-4639-A65A-6E47E5012B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F004A9D1-03B3-4639-A65A-6E47E5012B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F004A9D1-03B3-4639-A65A-6E47E5012B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F004A9D1-03B3-4639-A65A-6E47E5012B20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,5 +127,6 @@ Global
 		{05051CCE-3B03-4BAD-9143-C3C861555949} = {FC002F42-60F1-4387-BCBA-5CF75D1E8FD3}
 		{07CE727A-8E5A-43A9-9748-05A128E62A22} = {FC002F42-60F1-4387-BCBA-5CF75D1E8FD3}
 		{E86D10FA-0F50-4B4E-9C0B-C28B6FB8D1F7} = {D18564EF-869F-4C39-B61A-727EB5372BA6}
+		{F004A9D1-03B3-4639-A65A-6E47E5012B20} = {73CEF299-00FB-4A9F-8035-B4FC4CA85492}
 	EndGlobalSection
 EndGlobal

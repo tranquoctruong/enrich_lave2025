@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IdentityService.Application.Interfaces.Repository;
 using IdentityService.Domain.Entities;
 using IdentityService.Infrastructure.DBContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Infrastructure.Repository
 {
@@ -15,9 +16,11 @@ namespace IdentityService.Infrastructure.Repository
         { 
             
         }
-        public Task<User?> GetByUsernameAsync(string username)
+        public async Task<User?> GetByUsernameAsync(string username)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Include(u => u.RefreshTokens)
+                .FirstOrDefaultAsync(u => u.Username == username);
         }
     }
 }
