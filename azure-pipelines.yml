@@ -16,14 +16,31 @@ steps:
     packageType: 'sdk'
     version: '8.x'  # hoặc version .NET bạn dùng
 
-- script: dotnet restore services/identity-service/IdentityService.API/IdentityService.API.csproj
+- task: DotNetCoreCLI@2
   displayName: 'Restore IdentityService'
+  inputs:
+    command: 'restore'
+    projects: '**/IdentityService.API.csproj'
 
-- script: dotnet build services/identity-service/IdentityService.API/IdentityService.API.csproj --configuration $(buildConfig) --no-restore
+- task: DotNetCoreCLI@2
   displayName: 'Build IdentityService'
+  inputs:
+    command: 'build'
+    projects: '**/IdentityService.API.csproj'
+    arguments: '--configuration Release'
 
-- script: dotnet publish services/identity-service/IdentityService.API/IdentityService.API.csproj --configuration $(buildConfig) --no-build --output $(Build.ArtifactStagingDirectory)/identity
+- task: DotNetCoreCLI@2
   displayName: 'Publish IdentityService'
+  inputs:
+    command: 'publish'
+    projects: '**/IdentityService.API.csproj'
+    arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)/identity-service'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: identity-service'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
+    ArtifactName: 'identity-service'
 
 - task: PublishBuildArtifacts@1
   inputs:
