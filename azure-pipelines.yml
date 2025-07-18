@@ -11,17 +11,20 @@ variables:
   buildConfig: 'Release'
 
 steps:
+# Cài .NET SDK
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '8.x'  # hoặc version .NET bạn dùng
+    version: '8.x'
 
+# Khôi phục package
 - task: DotNetCoreCLI@2
   displayName: 'Restore IdentityService'
   inputs:
     command: 'restore'
     projects: '**/IdentityService.API.csproj'
 
+# Build
 - task: DotNetCoreCLI@2
   displayName: 'Build IdentityService'
   inputs:
@@ -29,6 +32,7 @@ steps:
     projects: '**/IdentityService.API.csproj'
     arguments: '--configuration $(buildConfig)'
 
+# Publish
 - task: DotNetCoreCLI@2
   displayName: 'Publish IdentityService'
   inputs:
@@ -36,9 +40,26 @@ steps:
     publishWebProjects: false
     projects: '**/IdentityService.API.csproj'
     arguments: '--configuration $(buildConfig) --output $(Build.ArtifactStagingDirectory)/identity-service'
-    zipAfterPublish: false  # không tạo file .zip
+    zipAfterPublish: false
 
-# Publish thư mục (chứ không phải zip)
+# 🔑 Lấy secret từ Key Vault
+- task: AzureKeyVault@2
+  displayName: 'Get secrets from Key Vault'
+  inputs:
+    azureSubscription: 'azure-fullstack-conn' # 👈 thay tên service connection thật
+    KeyVaultName: 'truongfullstack-kv'
+    SecretsFilter: 'AuthDBConnectionString'
+    RunAsPreJob: true
+
+# 🔁 Thay thế {{AuthDBConnectionString}} trong appsettings.json
+- task: FileTransform@1
+  displayName: 'Replace appsettings placeholders'
+  inputs:
+    folderPath: '$(Build.ArtifactStagingDirectory)/identity-service'
+    fileType: 'json'
+    targetFiles: '**/appsettings*.json'
+
+# Publish thư mục (not zip)
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: identity-service'
   inputs:
