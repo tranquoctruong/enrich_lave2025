@@ -44,7 +44,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
     ArtifactName: 'identity-drop'
     publishLocation: 'Container'
 
