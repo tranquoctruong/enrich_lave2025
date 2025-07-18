@@ -42,7 +42,7 @@ steps:
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: '<Tên service connection của bạn>'
+    azureSubscription: 'azure-fullstack-conn'
     appType: 'webApp'
     appName: 'fullstack-auth-api'
     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
