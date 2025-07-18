@@ -53,11 +53,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
     ArtifactName: 'identity-service'
     publishLocation: 'Container'
-
-# Deploy lên Azure Web App
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: 'azure-fullstack-conn'
-    appType: 'webApp'
-    appName: 'fullstack-auth-api'
-    package: '$(Build.ArtifactStagingDirectory)/identity-service/identity-service.zip'
