@@ -53,4 +53,4 @@ steps:
     azureSubscription: 'azure-fullstack-conn'
     appType: 'webApp'
     appName: 'fullstack-auth-api'
-    package: '$(Build.ArtifactStagingDirectory)/identity/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)/identity-service/**/*.zip'
