@@ -60,7 +60,7 @@ steps:
 - task: ReplaceTokens@5
   displayName: 'Replace {{Tokens}} in appsettings.json'
   inputs:
-    targetFiles: '$(Build.ArtifactStagingDirectory)/identity-service/appsettings.json'
+    targetFiles: '$(Build.ArtifactStagingDirectory)/identity-service/IdentityService.API/appsettings.json'
     encoding: 'auto'
     tokenPattern: 'custom'
     customTokenPattern: '\{\{(\w+)\}\}'
