@@ -51,11 +51,14 @@ steps:
     SecretsFilter: 'AuthDBConnectionString'
     RunAsPreJob: true
 
+- script: dir $(Build.ArtifactStagingDirectory)/identity-service /s
+  displayName: 'List files in artifact staging directory'
+
 # 🔁 Thay thế {{AuthDBConnectionString}} trong appsettings.json
 - task: ReplaceTokens@5
   displayName: 'Replace {{Tokens}} in appsettings.json'
   inputs:
-    targetFiles: '$(Build.ArtifactStagingDirectory)/identity-service/appsettings*.json'
+    targetFiles: '$(Build.ArtifactStagingDirectory)/identity-service/appsettings.json'
     encoding: 'auto'
     tokenPattern: 'custom'
     customTokenPattern: '\{\{(\w+)\}\}'
