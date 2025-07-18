@@ -36,18 +36,25 @@ steps:
     projects: '**/IdentityService.API.csproj'
     arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)/identity-service'
 
+# Tạo zip
+- task: ArchiveFiles@2
+  displayName: 'Create zip package for deployment'
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/identity-service'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/identity-service/identity-service.zip'
+    replaceExistingArchive: true
+
+# Publish Artifact
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: identity-service'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
     ArtifactName: 'identity-service'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
-    ArtifactName: 'identity-service'
     publishLocation: 'Container'
 
+# Deploy lên Azure Web App
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'azure-fullstack-conn'
