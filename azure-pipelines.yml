@@ -52,12 +52,13 @@ steps:
     RunAsPreJob: true
 
 # 🔁 Thay thế {{AuthDBConnectionString}} trong appsettings.json
-- task: FileTransform@1
-  displayName: 'Replace appsettings placeholders'
+- task: ReplaceTokens@5
+  displayName: 'Replace {{Tokens}} in appsettings.json'
   inputs:
-    folderPath: '$(Build.ArtifactStagingDirectory)/identity-service'
-    fileType: 'json'
-    targetFiles: '**/appsettings*.json'
+    targetFiles: '$(Build.ArtifactStagingDirectory)/identity-service/appsettings*.json'
+    encoding: 'auto'
+    tokenPattern: 'custom'
+    customTokenPattern: '\{\{(\w+)\}\}'
 
 # Publish thư mục (not zip)
 - task: PublishBuildArtifacts@1
