@@ -1,43 +1,34 @@
 trigger:
-- master
+  branches:
+    include:
+      - master
+      - main
 
 pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfig: 'Release'
 
 steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '8.x'
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+    version: '8.x'  # hoặc version .NET bạn dùng
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
+- script: dotnet restore backend/services/identity-service/IdentityService.API/IdentityService.API.csproj
+  displayName: 'Restore IdentityService'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+- script: dotnet build backend/services/identity-service/IdentityService.API/IdentityService.API.csproj --configuration $(buildConfig) --no-restore
+  displayName: 'Build IdentityService'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+- script: dotnet publish backend/services/identity-service/IdentityService.API/IdentityService.API.csproj --configuration $(buildConfig) --no-build --output $(Build.ArtifactStagingDirectory)/identity
+  displayName: 'Publish IdentityService'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity'
+    ArtifactName: 'identity-drop'
     publishLocation: 'Container'
 
 - task: AzureWebApp@1
@@ -45,4 +36,4 @@ steps:
     azureSubscription: 'azure-fullstack-conn'
     appType: 'webApp'
     appName: 'fullstack-auth-api'
-    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)/identity/**/*.zip'
