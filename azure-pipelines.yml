@@ -27,26 +27,18 @@ steps:
   inputs:
     command: 'build'
     projects: '**/IdentityService.API.csproj'
-    arguments: '--configuration Release'
+    arguments: '--configuration $(buildConfig)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish IdentityService'
   inputs:
     command: 'publish'
+    publishWebProjects: false
     projects: '**/IdentityService.API.csproj'
-    arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)/identity-service'
+    arguments: '--configuration $(buildConfig) --output $(Build.ArtifactStagingDirectory)/identity-service'
+    zipAfterPublish: false  # không tạo file .zip
 
-# Tạo zip
-- task: ArchiveFiles@2
-  displayName: 'Create zip package for deployment'
-  inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/identity-service'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/identity-service/identity-service.zip'
-    replaceExistingArchive: true
-
-# Publish Artifact
+# Publish thư mục (chứ không phải zip)
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: identity-service'
   inputs:
