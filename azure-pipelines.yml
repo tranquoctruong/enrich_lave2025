@@ -36,21 +36,17 @@ steps:
     projects: '**/IdentityService.API.csproj'
     arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)/identity-service'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: identity-service'
+- task: ArchiveFiles@2
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
-    ArtifactName: 'identity-service'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
-    ArtifactName: 'identity-drop'
-    publishLocation: 'Container'
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/identity-service'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: '$(Build.ArtifactStagingDirectory)/identity-service/identity-service.zip'
+    replaceExistingArchive: true
 
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'azure-fullstack-conn'
     appType: 'webApp'
     appName: 'fullstack-auth-api'
-    package: '$(Build.ArtifactStagingDirectory)/identity-service/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)/identity-service/identity-service.zip'
