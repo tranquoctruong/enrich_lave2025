@@ -51,8 +51,10 @@ steps:
     SecretsFilter: 'AuthDBConnectionString'
     RunAsPreJob: true
 
-- script: dir $(Build.ArtifactStagingDirectory)/identity-service /s
+- task: CmdLine@2
   displayName: 'List files in artifact staging directory'
+  inputs:
+    script: 'dir "$(Build.ArtifactStagingDirectory)\identity-service" /s'
 
 # 🔁 Thay thế {{AuthDBConnectionString}} trong appsettings.json
 - task: ReplaceTokens@5
