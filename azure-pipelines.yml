@@ -36,13 +36,17 @@ steps:
     projects: '**/IdentityService.API.csproj'
     arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)/identity-service'
 
-- task: ArchiveFiles@2
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: identity-service'
   inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/identity-service'
-    includeRootFolder: false
-    archiveType: zip
-    archiveFile: '$(Build.ArtifactStagingDirectory)/identity-service/identity-service.zip'
-    replaceExistingArchive: true
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
+    ArtifactName: 'identity-service'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/identity-service'
+    ArtifactName: 'identity-service'
+    publishLocation: 'Container'
 
 - task: AzureWebApp@1
   inputs:
