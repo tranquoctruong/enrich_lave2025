@@ -16,13 +16,13 @@ steps:
     packageType: 'sdk'
     version: '8.x'  # hoặc version .NET bạn dùng
 
-- script: dotnet restore backend/services/identity-service/IdentityService.API/IdentityService.API.csproj
+- script: dotnet restore services/identity-service/IdentityService.API/IdentityService.API.csproj
   displayName: 'Restore IdentityService'
 
-- script: dotnet build backend/services/identity-service/IdentityService.API/IdentityService.API.csproj --configuration $(buildConfig) --no-restore
+- script: dotnet build services/identity-service/IdentityService.API/IdentityService.API.csproj --configuration $(buildConfig) --no-restore
   displayName: 'Build IdentityService'
 
-- script: dotnet publish backend/services/identity-service/IdentityService.API/IdentityService.API.csproj --configuration $(buildConfig) --no-build --output $(Build.ArtifactStagingDirectory)/identity
+- script: dotnet publish services/identity-service/IdentityService.API/IdentityService.API.csproj --configuration $(buildConfig) --no-build --output $(Build.ArtifactStagingDirectory)/identity
   displayName: 'Publish IdentityService'
 
 - task: PublishBuildArtifacts@1
