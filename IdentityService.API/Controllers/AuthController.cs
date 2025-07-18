@@ -17,6 +17,12 @@ namespace IdentityService.API.Controllers
             _authService = authService;
         }
 
+        [HttpGet("api-check")]
+        public IActionResult HelpCheck()
+        {
+            return Ok("Very good");
+        }
+
         /// <summary>
         /// Đăng nhập
         /// </summary>
