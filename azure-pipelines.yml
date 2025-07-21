@@ -63,7 +63,8 @@ steps:
     targetFiles: '$(Build.ArtifactStagingDirectory)/identity-service/IdentityService.API/appsettings.json'
     encoding: 'auto'
     tokenPattern: 'custom'
-    customTokenPattern: '\{\{(\w+)\}\}'
+    tokenPrefix: '{{'
+    tokenSuffix: '}}'
 
 # Publish thư mục (not zip)
 - task: PublishBuildArtifacts@1
