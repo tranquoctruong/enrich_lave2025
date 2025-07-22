@@ -32,7 +32,7 @@ namespace ProductService.Application.Services
                 product.Name,
                 product.Price,
                 product.CreatedAt
-            }, "product.exchange", "product.created");
+            }, "product.fanout", "product.created");
 
             return id;
         }
