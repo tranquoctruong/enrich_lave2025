@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityService.API.Controllers
 {
     using IdentityService.DTO;
-    
+    using Microsoft.AspNetCore.Authorization;
+
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
@@ -18,6 +19,7 @@ namespace IdentityService.API.Controllers
         }
 
         [HttpGet("api-check")]
+        [Authorize]
         public IActionResult HelpCheck()
         {
             return Ok("Very good");

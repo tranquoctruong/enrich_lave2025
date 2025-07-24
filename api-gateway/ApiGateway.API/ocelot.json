@@ -1,0 +1,106 @@
+{
+    "Routes": [
+        // --------------------------
+        // AuthService - LOGIN (No Auth)
+        // --------------------------
+        {
+            "DownstreamPathTemplate": "/api/auth/login",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 44313
+                }
+            ],
+            "UpstreamPathTemplate": "/auth/login",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
+
+        // --------------------------
+        // AuthService - REFRESH TOKEN (optional Auth)
+        // --------------------------
+        {
+            "DownstreamPathTemplate": "/api/auth/refresh",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 44313
+                }
+            ],
+            "UpstreamPathTemplate": "/auth/refresh",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
+
+        // --------------------------
+        // ProductService 
+        // --------------------------
+        {
+            "DownstreamPathTemplate": "/api/product/list",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7062
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/product/list",
+            "UpstreamHttpMethod": [ "GET" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/product/get/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7062
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/product/get/{id}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/product/create",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7062
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/product/create",
+            "UpstreamHttpMethod": [ "POST" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            }
+        },
+
+        // --------------------------
+        // UserService 
+        // --------------------------
+        {
+            "DownstreamPathTemplate": "/api/users",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7103
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            }
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "https://localhost:8000"
+    }
+}

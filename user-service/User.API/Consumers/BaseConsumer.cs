@@ -36,7 +36,7 @@ namespace User.API.Consumers
 
                 logger.LogInformation($"[{queueName}] Received: {message}");
 
-                // Xử lý logic tại đây...
+                // logic handle...
             };
 
             await channel.BasicConsumeAsync(queue: queueName, autoAck: true, consumer: consumer);
